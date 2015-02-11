@@ -8,9 +8,9 @@ class Listing < ActiveRecord::Base
 	                      :path => ":style/:id_:filename"							
 end
 
-	validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 	validates :name, :description, :price, presence: true
 	validates :price, numericality: { greater_than: 0 }
+	validates_attachment :image, content_type: { content_type: ["image/jpg", "image/jpeg", "image/png", "image/gif"] }
 	validates_attachment_presence :image
 
 	belongs_to :user
