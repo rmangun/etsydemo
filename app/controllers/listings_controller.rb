@@ -29,7 +29,7 @@ class ListingsController < ApplicationController
 
   # POST /listings
   # POST /listings.json
- def create
+  def create
     @listing = Listing.new(listing_params)
     @listing.user_id = current_user.id
 
@@ -40,9 +40,9 @@ class ListingsController < ApplicationController
       else
         format.html { render action: 'new' }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
+      end
     end
   end
-end
 
   # PATCH/PUT /listings/1
   # PATCH/PUT /listings/1.json
@@ -52,35 +52,36 @@ end
         format.html { redirect_to @listing, notice: 'Listing was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render :edit }
+        format.html { render action: 'edit' }
         format.json { render json: @listing.errors, status: :unprocessable_entity }
       end
+    end
   end
-end
 
   # DELETE /listings/1
   # DELETE /listings/1.json
   def destroy
     @listing.destroy
     respond_to do |format|
-      format.html { redirect_to listings_url, notice: 'Listing was successfully destroyed.' }
+      format.html { redirect_to listings_url }
       format.json { head :no_content }
+    end
   end
-end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-  def set_listing
+    def set_listing
       @listing = Listing.find(params[:id])
-  end
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-  def listing_params
+    def listing_params
       params.require(:listing).permit(:name, :description, :price, :image)
-  end
-  def check_user
+    end
+
+    def check_user
       if current_user != @listing.user
         redirect_to root_url, alert: "Sorry, this listing belongs to someone else"
-      end  
-  end
+      end
+    end
 end
