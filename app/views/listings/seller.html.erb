@@ -9,7 +9,9 @@
 
   <% @listings.each do |listing| %>
     <tr>
-      <td><%= image_tag listing.image.url(:thumb) %></td>
+      <td>
+        <%= image_tag listing.image.url(:thumb) %>
+      </td>
       <td><%= listing.name %></td>
       <td><%= listing.description %></td>
       <td><%= number_to_currency(listing.price) %></td>
